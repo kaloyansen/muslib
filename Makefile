@@ -9,8 +9,6 @@ SRC = src/muslib.cpp
 OBJ = $(patsubst src/%.cpp,bin/%.o,$(SRC)) 
 BINARY = bin/muslib
 
-$(shell mkdir -p bin)
-
 all: $(BINARY)
 
 $(BINARY): $(OBJ)

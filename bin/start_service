@@ -4,12 +4,10 @@
 
 TIMEOUT=11
 
-die() {
-    exit_code=$1
-    shift
-    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $@" >&2
-    exit $exit_code || kill $$
-}
+REAL=`realpath $0`
+OU=`dirname $REAL`
+
+source $OU/die
 
 [ -z "$1" ] && die 2 usage: $0 service_name
 

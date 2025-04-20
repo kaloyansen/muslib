@@ -1,0 +1,8 @@
+# function
+
+die() {
+    exit_code=$1
+    shift
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $@" >&2
+    exit $exit_code || kill $$
+}
