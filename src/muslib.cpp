@@ -112,7 +112,7 @@ int insert_song(soci::session& sql, Song & song)
 }
 
 
-void delete_id(soci::session & sql, int id)
+void delete_id(soci::session & sql, const int id)
 {
      sql << "DELETE FROM song WHERE id = :id", soci::use(id);
 }
