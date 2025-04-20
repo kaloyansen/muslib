@@ -1,4 +1,4 @@
-# function
+# bird lives
 
 die() {
     exit_code=$1
@@ -6,3 +6,7 @@ die() {
     echo "[$(date '+%Y-%m-%d %H:%M:%S')] $@" >&2
     exit $exit_code || kill $$
 }
+
+
+(return 0 2>/dev/null) || die 1 you may die if you execute $0
+
