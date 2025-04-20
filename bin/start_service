@@ -1,0 +1,33 @@
+#!/usr/bin/env sh
+# a shell script to start a service if not running
+# code by Kaloyan Krastev kaloyansen@gmail.com
+
+TIMEOUT=11
+
+die() {
+    exit_code=$1
+    shift
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] $@" >&2
+    exit $exit_code || kill $$
+}
+
+[ -z "$1" ] && die 2 usage: $0 service_name
+
+SERVICE=$1
+systemctl list-unit-files --type=service | grep -q "^${SERVICE}\.service" || die 3 cannot find service $SERVICE
+systemctl is-active --quiet $SERVICE || {
+    echo $SERVICE is down
+    sudo -n true 2>/dev/null || die 1 cannot start $SERVICE due to insufficient privileges
+    echo starting $SERVICE
+    sudo systemctl start $SERVICE || die 1 cannot start $SERVICE
+
+    while [ $TIMEOUT -gt 0 ]; do
+	systemctl is-active --quiet $SERVICE && break
+	sleep 1
+	TIMEOUT=$((TIMEOUT - 1))
+    done
+    [ $TIMEOUT -eq 0 ] && die 1 timeout: cannot start $SERVICE
+}
+
+die 0 $SERVICE is running
+

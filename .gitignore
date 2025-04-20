@@ -30,6 +30,7 @@
 *.exe
 *.out
 *.app
+bin/muslib
 
 # database
 mariadb-dump.sql
