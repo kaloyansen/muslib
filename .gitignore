@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+
+# database
+mariadb-dump.sql
+
+# run script
+run

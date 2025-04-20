@@ -1,2 +1,2 @@
 # muslib
-a music library database wit mariadb
+a music library database with mariadb
